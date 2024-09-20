@@ -1,7 +1,10 @@
 const express = require('express') //import express
 const path = require('path') //import path module
 const app = express() // tạo express application
-const port = 3000  // init port
+require('dotenv').config() //import dotenv module
+const port = process.env.PORT || 8888// nếu mà không có port thì mặc định là 8888
+const hostname = process.env.HOST_NAME
+
 
 //config template engine
 app.set('views', path.join(__dirname, 'views'))
@@ -25,6 +28,6 @@ app.get('/me', (req, res) => {
 
 //run server trên port đã khởi tạo trước đấy
 //nạp các thông tin khai báo ở trên rồi chạy (ví dụ như nạp routes)
-app.listen(port, () => {
+app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`)
 })
