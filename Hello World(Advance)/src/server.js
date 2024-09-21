@@ -13,7 +13,7 @@ app.set('view engine', 'ejs')
 //khai báo routes
 //req (request), res(response) là 2 object trong môi trường Node.js
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! with nodemon')
 })
 
 app.get('/abc', (req, res) => {
