@@ -1,19 +1,14 @@
 const express = require('express') //import express
+const {getHomePage, getAboutPage, getDetailPage } = require('../controllers/homeController')
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.send('Hello World! with nodemon')
-})
+//router.Method('route',handler)
+router.get('/', getHomePage)
 
-router.get('/abc', (req, res) => {
-    res.send('Hello World with abc')
-})
+router.get('/about', getAboutPage)
 
 //with dynamic content route
-router.get('/me', (req, res) => {
-    // res.send('<h1>Hello World with me</h1>')
-    res.render('sample.ejs')
-})
+router.get('/detail', getDetailPage)
 
 
-module.exports = router
+module.exports = router //export.default
