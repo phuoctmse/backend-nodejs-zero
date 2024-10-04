@@ -20,9 +20,9 @@ app.use('/', webRoutes)
 
 
 
-connection.query('select * from Users', (err, results, field) => {
-  console.log(results)
-})
+// connection.query('select * from Users', (err, results, field) => {
+//   console.log(results)
+// })
 //run server trên port đã khởi tạo trước đấy
 //nạp các thông tin khai báo ở trên rồi chạy (ví dụ như nạp routes)
 app.listen(port, hostname, () => {
