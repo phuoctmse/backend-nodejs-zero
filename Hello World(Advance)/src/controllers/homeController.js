@@ -14,8 +14,15 @@ const getDetailPage = (req, res) => {
 }
 
 const postCreateUser = (req,res) => {
-    console.log(req.body)
-    res.send('User Created')
+    let {email, name, city } = req.body
+    connection.query(
+        `INSERT INTO Users ( email , name ,city ) 
+        VALUES (?,?,?)`
+        , [email, name, city],  function(err, results) {
+            res.send(' Created user succeed !')
+          }
+        
+    )
 }
 module.exports = {
     getHomePage,
