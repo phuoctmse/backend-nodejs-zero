@@ -9,6 +9,9 @@ const port = process.env.PORT || 8888// nếu mà không có port thì mặc đ�
 const hostname = process.env.HOST_NAME
 const connection = require('./config/database')
 
+//config req.body
+app.use(express.json()) // for json
+app.use(express.urlencoded({ extended: true })) // for form data
 
 
 //config template engine
@@ -17,7 +20,6 @@ configViewEngine(app)
 
 //khai báo routes
 app.use('/', webRoutes)
-
 
 
 // connection.query('select * from Users', (err, results, field) => {
