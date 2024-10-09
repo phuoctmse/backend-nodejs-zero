@@ -19,6 +19,10 @@ const getCreatePage = (req, res) => {
     res.render('create.ejs')
 }
 
+const getEditPage = (req, res) => {
+    res.render('edit.ejs')
+}
+
 const postCreateUser = async (req, res) => {
    
     // connection.query(
@@ -41,5 +45,6 @@ module.exports = {
     getAboutPage,
     getDetailPage,
     postCreateUser,
-    getCreatePage
+    getCreatePage,
+    getEditPage
 }
