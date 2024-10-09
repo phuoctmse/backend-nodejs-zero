@@ -20,6 +20,8 @@ const getCreatePage = (req, res) => {
 }
 
 const getEditPage = (req, res) => {
+    const userId = req.params.userId
+    console.log(req.params, userId)
     res.render('edit.ejs')
 }
 

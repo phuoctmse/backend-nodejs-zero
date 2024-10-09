@@ -10,6 +10,6 @@ router.get('/about', getAboutPage)
 //with dynamic content route
 router.get('/create', getCreatePage)
 router.post('/create-user', postCreateUser)
-router.get('/edit', getEditPage)
+router.get('/edit/:userId', getEditPage)
 
 module.exports = router //export.default
