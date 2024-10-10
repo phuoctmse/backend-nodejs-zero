@@ -1,5 +1,7 @@
 const express = require('express') //import express
-const {getHomePage, getAboutPage, getEditPage, postCreateUser, getCreatePage } = require('../controllers/homeController')
+const {getHomePage, getAboutPage, getEditPage, postCreateUser, getCreatePage
+        ,getUserById
+ } = require('../controllers/homeController')
 const router = express.Router()
 
 //router.Method('route',handler)
@@ -11,5 +13,6 @@ router.get('/about', getAboutPage)
 router.get('/create', getCreatePage)
 router.post('/create-user', postCreateUser)
 router.get('/edit/:userId', getEditPage)
+
 
 module.exports = router //export.default

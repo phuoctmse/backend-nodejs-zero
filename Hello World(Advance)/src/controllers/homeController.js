@@ -19,10 +19,17 @@ const getCreatePage = (req, res) => {
     res.render('create.ejs')
 }
 
-const getEditPage = (req, res) => {
+const getUserById = async (userId) => {
+    let [results, fields] = await connection.query('select * from Users where id = ? ', [userId]);
+    let user = results && results.length > 0 ? results[0] : {};
+    return user;
+
+}
+
+const getEditPage = async (req, res) => {
     const userId = req.params.userId
-    console.log(req.params, userId)
-    res.render('edit.ejs')
+    let user = await getUserById(userId)
+    res.render('edit.ejs', {userEdit: user})
 }
 
 const postCreateUser = async (req, res) => {
@@ -48,5 +55,6 @@ module.exports = {
     getDetailPage,
     postCreateUser,
     getCreatePage,
-    getEditPage
+    getEditPage,
+    getUserById
 }
