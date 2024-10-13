@@ -1,6 +1,6 @@
 const express = require('express')
 const connection = require('../config/database')
-const {getAllUsers, getUserById} = require('../services/CRUDService')
+const {getAllUsers, getUserById, DeleteUser} = require('../services/CRUDService')
 
 const getHomePage = async (req, res) => {
     let result = await getAllUsers()
@@ -25,7 +25,17 @@ const getEditPage = async (req, res) => {
     res.render('edit.ejs', {userEdit: user})
 }
 
+const postDeletePage = async (req, res) => { 
+    const userId = req.params.userId
+    let user = await getUserById(userId)
+    res.render('delete.ejs', {userDelete: user})
+}
 
+const postDeleteUser = async (req, res) => {
+    const userId = req.body.userId
+    await DeleteUser(userId)
+    res.redirect('/')
+}
 
 
 module.exports = {
@@ -34,4 +44,6 @@ module.exports = {
     getDetailPage,
     getCreatePage,
     getEditPage,
+    postDeletePage,
+    postDeleteUser
 }
