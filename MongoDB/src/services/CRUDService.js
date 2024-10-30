@@ -1,33 +1,27 @@
 const connection = require("../config/database");
+const User = require("../models/User");
 
 const getAllUsers = async () => {
-    let [results, fields] = await connection.query('select * from Users');
-    return results;
+    const result = await User.find({})
+    return result;
 }
 
 const getUserById = async (userId) => {
-    let [results, fields] = await connection.query('select * from Users where id = ? ', [userId]);
-    let user = results && results.length > 0 ? results[0] : {};
+    const user = await User.findById(userId);
     return user;
 }
 
-const updateUserById = async (email, city, name, userId) => {
-    let [results, fields] = await connection.query(
-        `
-        UPDATE Users 
-        SET email = ?, city= ?, name= ?
-        WHERE id = ?
-        `, [email, city, name, userId]
-    );
+const createUser = async (email, name, city) => {
+    await User.create({ email: email, name: name, city: city });
 }
 
-const deleteUserById = async (id) => {
-    let [results, fields] = await connection.query(
-        ` DELETE FROM Users WHERE id = ? `, [id]
-    );
+const updateUser = async (id, email, name, city) => {
+    let result = User.updateOne({ _id: id }, { email: email, name: name, city: city }).exec()
 }
 
+const deleteUser = async (userId) => {
+    await User.findByIdAndDelete(userId);
+}
 module.exports = {
-    getAllUsers, getUserById,
-    updateUserById, deleteUserById
+    getAllUsers, getUserById, createUser, updateUser, deleteUser
 }
