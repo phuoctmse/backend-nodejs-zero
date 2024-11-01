@@ -1,10 +1,11 @@
 const connection = require('../config/database');
-const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require('../services/CRUDService');
+const { getAllUsers, getUserById,
+    updateUserById, deleteUserById } = require('../services/CRUDService');
 const User = require('../models/User');
 
 
 const getHomepage = async (req, res) => {
-    let results = await getAllUsers();
+    let results = await User.find({});
     return res.render('home.ejs', { listUsers: results }) // x <- y
 }
 
@@ -13,6 +14,7 @@ const getABC = (req, res) => {
 }
 
 const getHoiDanIT = (req, res) => {
+    // res.send('<h1>hoi dan it voi Eric </h1>')
     res.render('sample.ejs')
 }
 
@@ -24,7 +26,13 @@ const postCreateUser = async (req, res) => {
 
     console.log(">>> email = ", email, ' name = ', name, ' city = ', city)
 
-    await createUser(email, name, city);
+    // let {email, name, city} = req.body;
+
+    // let [results, fields] = await connection.query(
+    //     `INSERT INTO Users (email, name, city) VALUES (?, ?, ?) `, [email, name, city]
+    // );
+
+    await User.create({ email: email, name: name, city: city });
 
     res.send(' Created user succeed !')
 }
@@ -44,9 +52,10 @@ const postUpdateUser = async (req, res) => {
     let name = req.body.myname;
     let city = req.body.city;
     let userId = req.body.userId;
-    await updateUser(userId, email, name, city);
 
-    // res.send(' Updated user succeed !')  
+    await updateUserById(email, city, name, userId);
+
+    // res.send(' Updated user succeed !')
     res.redirect('/');
 }
 
@@ -60,7 +69,7 @@ const postDeleteUser = async (req, res) => {
 const postHandleRemoveUser = async (req, res) => {
     const id = req.body.userId;
 
-    await deleteUser(id);
+    await deleteUserById(id);
 
     res.redirect('/');
 }
