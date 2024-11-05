@@ -1,4 +1,5 @@
-const { getAllUsers, createUser} = require('../services/CRUDService')
+const User = require('../models/User');
+const { getAllUsers, createUser, updateUser, deleteUser} = require('../services/CRUDService')
 
 const getUserApi = async (req, res) => {
     const listUsers = await getAllUsers();
@@ -23,4 +24,29 @@ const postUserApi = async (req,res) => {
     )
 }
 
-module.exports = {getUserApi, postUserApi}
+const putUserApi = async (req,res) => {
+    const email = req.body.email;
+    const name = req.body.name;
+    const city = req.body.city;
+    const id = req.body.userId
+    const user = await updateUser(id, email, name , city);
+    return res.status(200).json(
+        {
+            errorCode: 0,
+            data: user
+        }
+    )
+}
+
+const deleteUserApi = async (req,res) => {
+    const id = req.body.userId
+    const user = await deleteUser(id);
+    return res.status(200).json(
+        {
+            errorCode: 0,
+            data: user
+        }
+    )
+}
+
+module.exports = {getUserApi, postUserApi, putUserApi, deleteUserApi}
